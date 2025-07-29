@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SmartRoute AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+    * {
+
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('Employee Dashboard UI.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: top center;
+      min-height: 100vh;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    .side{
+      position: absolute;
+      top: 150px; 
+      left: 3vw; 
+      width: 15vw; 
+      height: 1380px; 
+      gap: 20px;
+      background-color: #eaecef;
+      padding: 30px;
+      border-radius: 20px;
+       box-shadow: var(--dark-version-shadow-dark-2);
+    }
+    .img{
+      width: 15px;
+      left: 4vw;
+    }
+
+    .main{
+      position: absolute;
+      top: 150px; 
+      left: 23vw; 
+      width: 70vw; 
+      height: 1380px; 
+       gap: 50px;
+      background-color: white;
+      padding: 30px;
+      border-radius: 20px;
+       box-shadow: var(--dark-version-shadow-dark-2);
+    }
+    .skills{
+      position: absolute;
+
+    }
+    .courses{
+      position: absolute;
+    }
+    .scores{
+      position: absolute;
+    }
+    .notes{
+      position: absolute;
+    }
+
+    .text {
+      position: absolute;
+    }
+
+    .text1 {
+      left: 5.5vw;
+      color: rgb(0, 0, 0);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+   
+
+      .text2 {
+        background-color: white;           /* خلفية بيضاء حقيقية */
+        color: #0e9297;                    /* لون النص مناسب */
+        border-radius: 15px;
+        padding: 25px 130px;
+        font-size: 1.7vw;
+        font-weight: 500;
+        z-index: 4;
+        display: inline-block;
+        transform: translateX(-50%);
+        white-space: nowrap;
+      }
+
+    .text3 {
+      background-color: white;           /* خلفية بيضاء حقيقية */
+        color: #0e9297;                    /* لون النص مناسب */
+        border-radius: 15px;
+        padding: 25px 75px;
+        font-size: 1.7vw;
+        font-weight: 500;
+        z-index: 4;
+        display: inline-block;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+
+    .button {
+      position: absolute;
+      z-index: 4;
+      background: linear-gradient(to bottom, #006064 0%,#009890 50%,#D9D9D9 100%);
+      color: white;
+      padding: 12px 48px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    img {
+      position: absolute;
+      z-index: 2;
+    }
+
+    .image1 {
+      position: absolute;
+      z-index: 4;
+    }
+
+    .box {
+      position: absolute;
+      background-color: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .circle-btn {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      z-index: 4;
+      background: linear-gradient(to bottom, #006064 0%, #009890 50%, #D9D9D9 100%);
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+  </style>
+</head>
+  <body>
+    <div class="container">
+      <!-- العنوان -->
+      <div class="text" style="top: 50px; left: 5.9vw; color:white; font-size: 1.25rem; font-weight: 700;">SmartRoute AI</div>
+  
+      <!-- أيقونة الحساب -->
+       <div>
+      <img src="-account_circle.png" style="top: 50px; right: 10vw; width: 30px;">
+      <div class="userName" style="z-index: 4; display: none; top: 50px; left: 1315px; position: absolute; color: white;"></div></div>
+
+      <!-- القائمة الجانبية -->
+      <div class="side">
+      <a href="main.html" class="start-button">
+        
+        <div class="text text1" style="top: 80px;">Home</div>
+        <img class="img" src="Home.png" style="top: 80px;"></a>
+
+      <div class="text text1" style="top: 130px;">Dashboard</div>
+      <img class="img" src="application.png" style="top: 130px;">
+  
+      <div class="text text1" style="top: 180px;">Recommendations</div>
+      <img  class="img" src="Fill.png" style="top: 180px;">
+  
+      <div class="text text1" style="top: 230px;">Evaluations</div>
+      <img class="img" src="Icon.png" style="top: 230px;">
+  
+      <div class="text text1" style="top: 280px;">Notification</div>
+      <img class="img" src="notification.png" style="top: 280px;">
+  
+      <a href="login.html" class="start-button">
+        <div class="text text1" style="top: 330px;">Logout</div>
+        <img class="img" src="logout.png" style="top: 330px;"> </a>
+      </div>
+
+
+      <div class="main">
+        <div class="userName" style="
+        z-index: 4; 
+        display: none; 
+        top: 80px;  
+        left: 25vw; 
+        text-align: center;       
+        position: absolute; 
+        font-size: 30px; 
+        color: #1E1E1E;
+        z-index: 3;"></div>
+      <div class="box" style="
+        margin-top: 150px;
+        left: 3.5vw; 
+        width: 66.7vw; 
+        align-items: center;
+        height: 1200px; 
+        background-color: #D9D9D9;"></div>
+  
+       <div class="skills" >
+        <div class="text text2" style="margin-top: 200px; left: 18vw;">Your Skills</div>
+        <div id="skillsContainer" class="box" style="
+          position: absolute;
+          margin-top: 200px;
+          left: 4vw; 
+          width: 25vw;
+          max-height: 28vw;
+          overflow-y: auto;
+          background-color: white;
+          border-radius: 20px;
+          padding: 90px 20px 90px 20px; /* ← هذه السطر أضفناه */
+          display: flex;
+          flex-direction: column;
+          align-items: stretch; /* أو center لو تبينه بوسط البوكس */
+          gap: 10px;
+          z-index: 3;
+        ">
+          <!-- سيتم إدراج المهارات هنا تلقائيًا -->
+        </div>  
+       </div>
+    
+       <div class="courses">
+      <div class="text text3" style=" margin-top: 200px; left: 50vw;">Recommended Courses</div>
+      <div id="assessmentsContainer" class="box" style="
+        position: absolute;
+        margin-top: 200px;
+        left: 34vw;  
+        width: 30vw; 
+        height: 650px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        padding: 15px;
+        border-radius: 15px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);"></div>
+    </div>
+  
+    <div class="scores">
+    <div class="text text2" style="z-index: 4; top: 940px; left: 50vw;">Skills Scores</div>
+    <div class="box" style="
+      position: absolute;
+      top: 920px;
+      left: 34vw;  
+      width: 31.9vw;
+      height: 320px;
+      border-radius: 20px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      font-family: 'Poppins', sans-serif; ">
+    <div id="selectedScoreBox" style="
+      color: black;
+      font-size: 60px;
+      font-weight: 700;
+    "></div>
+    </div>
+    <select id="scoreDropdown" style="
+      position: absolute;
+      top: 1000px;
+      left: 44.5vw;
+      padding: 5px 10px;
+      font-size: 14px;
+      border-radius: 6px;
+      z-index: 5;
+    "></select>
+</div>
+
+<img class="image1" src="Group 4.png" style="
+        top: 850px;
+        left: 6vw; 
+        width: 39%;
+        max-width: 420px;">      
+      <div class="notes">  
+        <div class="text" style=" top: 850px; left: 6vw; color: white; font-size: 1.3rem; font-weight: 700; z-index: 4; white-space: nowrap;">Private Notes</div>
+        <img src="-account_circle.png" style="top: 910px; left: 6vw;  width: 60px;z-index: 4;">
+        <img src="massage.png" style="top: 910px; left: 25vw;  width: 60px;z-index: 4;">
+      </div>
+
+        <div id="notePopup" style="z-index: 4; display: none; position: fixed; top: 30%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.3); text-align: center; width: 400px;">
+        <p id="popupNoteContent" style="z-index: 4; font-size: 16px; color: #333;"></p>
+        <label><input type="checkbox" id="readCheckbox" /> I have read this note</label><br><br>
+        <button onclick="markNoteAsRead()" style="z-index: 4; background-color: #891121; color: white; border: none; padding: 8px 20px; border-radius: 10px; cursor: pointer;">Submit</button>
+        <button onclick="closeNotePopup()" style="z-index: 4; margin-left: 10px; background-color: #ccc; color: black; border: none; padding: 8px 10px; border-radius: 10px; cursor: pointer;">Cancel</button></div>
+     
+     <div id="notesContainer" style="
+        position: absolute;
+        top: 950px; 
+        left: 13vw; 
+        padding: 0 5px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 5;
+      "></div>
+
+      </div>
+    </div>
+  
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      const supabase = window.supabase.createClient(
+        'https://lunhqsvkhlscwwcjecht.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx1bmhxc3ZraGxzY3d3Y2plY2h0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEyNjkzNDEsImV4cCI6MjA2Njg0NTM0MX0.tOsnoreDpdOWESxnUMRMCgRTGKM0VMqLFdxgmrOfq3I'
+      );
+
+      function showUserName() {
+        const name = localStorage.getItem("userName");
+        if (name) {
+          document.querySelectorAll(".userName").forEach(el => {
+            el.textContent = name;
+            el.style.display = "block";
+          });
+        }
+      }
+
+      async function loadUserSkills() {
+        const userId = localStorage.getItem("userId");
+        if (!userId) return;
+
+        // 1. جلب المهارات
+        const { data: skills, error: skillError } = await supabase
+          .from("skills")
+          .select("skill_id, skill_name, skill_category, description")
+          .eq("user_id", userId);
+
+        // 2. جلب التقييمات لآخر مستوى
+        const { data: assessments, error: assessError } = await supabase
+          .from("assessments")
+          .select("skill_id, level, assessment_date")
+          .eq("user_id", userId)
+          .order("assessment_date", { ascending: false });
+
+        const container = document.getElementById("skillsContainer");
+        container.innerHTML = "";
+
+        if (skillError || !skills || skills.length === 0) {
+          container.innerHTML = "<p style='color: white; font-size: 14px;'>No skills found.</p>";
+          return;
+        }
+
+        // 3. أخذ آخر تقييم لكل مهارة
+        const latestLevels = {};
+        assessments.forEach(a => {
+          if (!latestLevels[a.skill_id]) {
+            latestLevels[a.skill_id] = a.level;
+          }
+        });
+
+        // 4. بناء البطاقات
+        skills.forEach(skill => {
+          const level = latestLevels[skill.skill_id] || "-";
+
+          const skillCard = document.createElement("div");
+          skillCard.style = `
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            background: linear-gradient(to bottom, #891121 40%, #E97878 100%);
+            color: white;
+            font-size: 17px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-family: sans-serif;
+            cursor: pointer;
+          `;
+
+          skillCard.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong>${skill.skill_name}</strong>
+          <span style="
+          width: 80px;
+            height: 70px;
+            border-radius: 8px;
+            background-color: #D9D9D9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: black;
+            font-family: 'Poppins', sans-serif;
+          ">${level}</span>
+          </div>
+        `;
+
+
+          skillCard.onclick = () => {
+            window.location.href = `evaluate.html?skill_id=${skill.skill_id}`;
+        };
+
+            container.appendChild(skillCard);
+          });
+
+         // 5. زر الإضافة بعد آخر مهارة
+const addBtnWrapper = document.createElement("div");
+addBtnWrapper.style = `
+  margin-top: 10px;  /* ← غيري الرقم حسب المسافة اللي تبينها */
+  display: flex;
+  justify-content: center;
+`;
+
+const addBtn = document.createElement("a");
+addBtn.href = "skills.html";
+addBtn.textContent = "+";
+addBtn.className = "circle-btn";
+addBtn.style = `
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+  background-color: #891121;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: 0.2s;
+`;
+
+addBtnWrapper.appendChild(addBtn);
+container.appendChild(addBtnWrapper);
+
+    }
+
+
+      let currentNoteId = null;
+
+      async function loadLatestAssessmentsPerSkill() {
+        const userId = localStorage.getItem("userId");
+        const container = document.getElementById("assessmentsContainer");
+        
+
+        if (!userId) {
+          container.innerHTML = "<p>User not logged in.</p>";
+          return;
+        }
+
+        // جلب كل التقييمات المرتبطة بالمستخدم
+        const { data: assessments, error } = await supabase
+          .from("assessments")
+          .select(`
+            assessment_id, score, level, assessment_date, skill_id,
+            skills ( skill_name )
+          `)
+          .eq("user_id", userId)
+          .order("assessment_date", { ascending: false });
+
+        if (error || !assessments || assessments.length === 0) {
+          container.innerHTML = "<p>No assessments yet.</p>";
+          return;
+        }
+
+        // فلترة لأخذ آخر تقييم لكل skill_id
+        const latestPerSkill = {};
+        assessments.forEach((a) => {
+          if (!latestPerSkill[a.skill_id]) {
+            latestPerSkill[a.skill_id] = a;
+          }
+        });
+
+        // جلب التوصيات المتعلقة
+        const skillIds = Object.keys(latestPerSkill);
+        const { data: recommendations, error: recError } = await supabase
+          .from("recommendation")
+          .select("skill_id, course_title, course_link")
+          .in("skill_id", skillIds);
+
+        if (recError) {
+          console.error("Error fetching recommendations:", recError);
+        }
+
+        container.innerHTML = "";
+        const skillArray = Object.values(latestPerSkill);
+        // نضمن أن العنصرين موجودين
+        const dropdown = document.getElementById("scoreDropdown");
+        const scoreBox = document.getElementById("selectedScoreBox");
+
+        if (!dropdown || !scoreBox) {
+          console.error("Dropdown or Score Box not found in the DOM.");
+          return;
+        }
+
+        dropdown.innerHTML = ""; // مسح العناصر القديمة
+
+        skillArray.forEach(skill => {
+          const option = document.createElement("option");
+          option.value = skill.skill_id;
+          option.textContent = skill.skills?.skill_name || "Unnamed Skill";
+          dropdown.appendChild(option);
+        });
+
+        // عند التغيير نعرض السكور
+        dropdown.addEventListener("change", () => {
+          const selectedId = parseInt(dropdown.value);
+          const selected = skillArray.find(s => s.skill_id === selectedId);
+          scoreBox.textContent = selected?.score || "0";
+        });
+
+        // افتراضيًا نعرض أول وحدة
+        if (skillArray.length > 0) {
+          dropdown.value = skillArray[0].skill_id;
+          scoreBox.textContent = skillArray[0].score || "0";
+        }
+
+
+
+        skillArray.forEach((a, idx) => {
+          const marginTop = idx === 0 ? '75px' : '0'; // بس أول عنصر نرفعه شوي
+          const skillName = a.skills?.skill_name || "Skill";
+          const level = a.level || "-";
+          const score = a.score || 0;
+          const course = recommendations?.find(r => r.skill_id === a.skill_id);
+
+          container.innerHTML += `
+            <div style="
+              margin-top: ${marginTop};
+              margin-bottom: 20px;              
+              width: 100%;
+              left:900px;
+              height:100px;
+              border-radius:20px;
+              background:linear-gradient(to bottom,#891121 40%,#E97878 100%);
+              z-index:3;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              text-align: center;
+              color: white;
+              font-family: 'Poppins', sans-serif;
+            ">
+              <div style="font-weight: 700; font-size: 18px;">${course?.course_title || "No course"}</div>
+              <a href="${course?.course_link || '#'}" target="_blank" style="color: #C7F5FB; font-size: 16px; font-weight: 700; margin-top: 5px; text-decoration: none;">
+                Access Course
+              </a>
+            </div>
+          `;
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        await loadLatestAssessmentsPerSkill();
+      });
+
+
+
+      async function loadManagerNotes() {
+        const userId = localStorage.getItem("userId");
+        const { data: notes, error } = await supabase
+          .from("notes")
+          .select("note_id, content, read")
+          .eq("user_id", userId);
+
+        if (error) {
+          console.error("❌ Error loading notes:", error);
+          return;
+        }
+
+        const container = document.getElementById("notesContainer");
+        container.innerHTML = "";
+
+        notes.forEach(note => {
+          const box = document.createElement("div");
+          box.style = `
+            width: 150px;
+            height: 20px;
+            padding: 14px;
+            border-radius: 18px;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            cursor: pointer;
+            font-size: 14px;
+            color: #222;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+          `;
+
+          box.textContent = note.content || "No content";
+
+          box.onmouseenter = () => {
+            box.style.transform = "scale(1.03)";
+            box.style.background = "#f9f9f9";
+          };
+          box.onmouseleave = () => {
+            box.style.transform = "scale(1.0)";
+            box.style.background = "#ffffff";
+          };
+
+          box.onclick = () => openNotePopup(note);
+          document.getElementById("notesContainer").appendChild(box);
+        });
+
+      }
+
+      
+      function openNotePopup(note) {
+        currentNoteId = note.note_id;
+        document.getElementById("popupNoteContent").textContent = note.content;
+        document.getElementById("readCheckbox").checked = note.read || false;
+        document.getElementById("notePopup").style.display = "block";
+      }
+
+      function closeNotePopup() {
+        document.getElementById("notePopup").style.display = "none";
+      }
+
+      async function markNoteAsRead() {
+        const checked = document.getElementById("readCheckbox").checked;
+        if (checked && currentNoteId) {
+          await supabase
+            .from("notes")
+            .update({ read: true })
+            .eq("note_id", currentNoteId);
+
+          closeNotePopup();
+          loadManagerNotes();
+        } else {
+          alert("Please confirm by checking the box.");
+        }
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        showUserName();
+        loadUserSkills();
+        loadManagerNotes();
+      });
+    </script>
+
+        </body>
+          </html>

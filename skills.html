@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>Set Up Your Skill Evaluation</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+      @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=DM+Sans:wght@700&display=swap");
+      * {
+        -webkit-font-smoothing: antialiased;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        background-image: url('SkillsBackground.png');
+        margin: 0px;
+        height: 100%;
+        font-family: "Poppins", sans-serif;
+      }
+      /* a blue color as a generic focus style */
+      button:focus-visible {
+        outline: 2px solid #4b7f8b !important;
+        outline: -webkit-focus-ring-color auto 5px !important;
+      }
+      a {
+        text-decoration: none;
+      }
+
+      .IMAJIN {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 999;
+        font-family: "Poppins", sans-serif;
+        font-weight: 400;
+        font-size: 17px;
+      }
+
+      .user-info {
+        display: flex;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 999;
+        gap: 8px;
+      }
+
+      .account-circle {
+        display: flex;
+        align-items: center;
+        gap: 6px; /* space between icon and name */
+      }
+
+      .ico-user-account {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+      }
+
+      .icon-down {
+        width: 16px;
+        height: 16px;
+        object-fit: contain;
+      }
+
+      h2{
+        font-family: "Poppins", sans-serif;
+        font-size: 26px;
+        font-weight: 700;
+      }
+
+      .skills-UI {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding: 40px 20px;
+        background: linear-gradient(
+          90deg,
+          rgba(70, 111, 95, 0.21) 0%,
+          rgba(255, 255, 255, 0.2) 50%,
+          rgba(130, 148, 141, 0.57) 100%
+        );
+        font-family: "Poppins", sans-serif;
+      }
+
+      /* Main Container */
+      .skills-UI .main-content {
+        width: 100%;
+        max-width: 1132px;
+        background: var(--white-primary);
+        border-radius: 20px;
+        box-shadow: var(--dark-version-shadow-dark-2);
+        padding: 40px;
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      /* Page Title */
+      .skills-UI .page-title {
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1.3;
+        background: var(--red);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
+
+      .progress-bar {
+        width: 100%;
+        max-width: 700px;
+        margin: 0 auto 40px;
+        padding: 20px 40px;
+        background: linear-gradient(to top,  #a9d6d4,  #50AAA6, #009890);
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .progress-bar ul {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        position: relative;
+      }
+
+      .progress-bar .step {
+        flex: 1;
+        font-family: "Poppins", sans-serif;
+        position: relative;
+        text-align: center;
+      }
+
+      /* Dots */
+      .step-indicator {
+        width: 40px;
+        height: 16px;
+        background: white;
+        border-radius: 50%;
+        display: inline-block;
+        z-index: 2;
+        position: relative;
+      }
+
+      /* Labels */
+      .step-label {
+        display: block;
+        width: 110px;
+        margin-top: 8px;
+        font-size: 14px;
+        color: white;
+      }
+      .progress-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 700px;
+        width: 100%;
+        margin: 0 auto 40px;
+        padding: 20px 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+        min-width: 80px;
+      }
+
+      .step-indicator {
+        width: 16px;
+        height: 16px;
+        background: white;
+        border-radius: 50%;
+        z-index: 2;
+      }
+
+      .step-label {
+        margin-top: 8px;
+        font-size: 14px;
+        color: white;
+        text-align: center;
+        font-weight: 500;
+      }
+
+      .step-line {
+        flex-grow: 1;
+        height: 2px;
+        background-color: rgb(206, 206, 206);
+        z-index: 1;
+        margin: 50 16px;
+        align-self: flex-start;
+        margin-top: 8px;
+      }
+
+      .step.active .step-indicator {
+        border: 3px solid #000000;
+        background: white;
+      }
+
+      .skills-UI .form-label {
+        font-size: 20px;
+        font-weight: 600;
+        margin-left: 5px;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        display: flex;
+        color: var(--dark-versiontypelight);
+      }
+
+      .skills-UI .textfield,
+      .skills-UI .textfield-2,
+      .skills-UI .textfield-3 {
+        padding: 16px 20px;
+        border: none;
+        border-radius: 15px;
+        background-color: #eaecef;
+        box-shadow: 0px 4px 4px #00000040;
+        font-size: 16px;
+        color: #9d9d9d;
+        resize: vertical;
+        align-items: center;
+        display: flex;
+        width: 100%;
+      }
+
+      .textfield::placeholder,
+      .textfield-2::placeholder,
+      .textfield-3::placeholder {
+        font-family: "Poppins", sans-serif;;
+        font-size: 16px;
+        font-weight: 100;
+        color: #999;
+      }
+
+      /* Skill Cards */
+      .skills-UI .skill-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        background-color: #eaecef;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: var(--dark-version-shadow-dark-2);
+      }
+
+      .skills-UI .skill-option {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px;
+        border-radius: 15px;
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-size: 18px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: box-shadow 0.2s ease;
+        background: linear-gradient(
+          90deg,
+          rgba(160, 165, 175, 1) 0%,
+          rgba(53, 79, 112, 0.71) 54%,
+          rgba(93, 132, 141, 1) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
+
+      input[type="checkbox"] {
+        accent-color: #009890;
+      }
+
+      .skills-UI .skill-option:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Button Section */
+      .skills-UI .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 30px;
+      }
+
+      .skills-UI .button-large {
+        padding: 12px 32px;
+        border: none;
+        border-radius: 30px;
+        background: linear-gradient(
+          0deg,
+          rgba(0, 152, 144, 1) 0%,
+          rgba(0, 152, 144, 1) 100%
+        );
+        color: var(--white-primary);
+        font-size: 18px;
+        font-weight: 600;
+        font-family: var(--titles-medium-font-family);
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .skills-UI .button-large:hover {
+        background: var(--red) ;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .skills-UI {
+          padding: 20px;
+        }
+
+        .skills-UI .main-content {
+          padding: 20px;
+        }
+
+        .skills-UI .form-actions {
+          justify-content: center;
+        }
+      }
+
+      :root {
+        --red: rgba(138, 18, 34, 1);
+        --gray: rgba(194, 194, 194, 1);
+        --dark-versiontypelight: rgb(71, 71, 71);
+        --dark-versiontypedisable: rgba(145, 153, 173, 1);
+        --white-primary: rgba(255, 255, 255, 1);
+        --light-versionsurfacewhite: rgba(255, 255, 255, 1);
+        --light-versionbrandprimary: rgba(255, 142, 41, 1);
+        --light-versiontypelight: rgba(111, 117, 126, 1);
+        --light-versionsurfacebackground-3: rgba(245, 245, 245, 1);
+        --light-versionsurfaceborder: rgba(225, 225, 225, 1);
+        --light-versiontypedark: rgba(5, 15, 36, 1);
+        --light-versionprimary-shadesshade-6: rgba(255, 199, 148, 1);
+        --text-font-family:"Poppins", sans-serif;
+        --text-font-weight: 700;
+        --text-font-size: 24px;
+        --text-letter-spacing: -0.25999999046325684px;
+        --text-line-height: 28px;
+        --text-font-style: normal;
+        --body-large-font-family: "Poppins", sans-serif;
+        --body-large-font-weight: 400;
+        --body-large-font-size: 14px;
+        --body-large-letter-spacing: 0px;
+        --body-large-line-height: normal;
+        --body-large-font-style: normal;
+        --headlines-small-font-family: "Poppins", sans-serif;
+        --headlines-small-font-weight: 700;
+        --headlines-small-font-size: 22.780000686645508px;
+        --headlines-small-letter-spacing: 0px;
+        --headlines-small-line-height: normal;
+        --headlines-small-font-style: normal;
+        --titles-large-font-family: "Poppins", sans-serif;
+        --titles-large-font-weight: 500;
+        --titles-large-font-size: 20.25px;
+        --titles-large-letter-spacing: 0px;
+        --titles-large-line-height: normal;
+        --titles-large-font-style: normal;
+        --titles-medium-font-family: "Poppins", sans-serif;
+        --titles-medium-font-weight: 500;
+        --titles-medium-font-size: 18px;
+        --titles-medium-letter-spacing: 0px;
+        --titles-medium-line-height: normal;
+        --titles-medium-font-style: normal;
+        --titles-small-font-family: "Poppins", sans-serif;
+        --titles-small-font-weight: 500;
+        --titles-small-font-size: 16px;
+        --titles-small-letter-spacing: 0px;
+        --titles-small-line-height: normal;
+        --titles-small-font-style: normal;
+        --dark-version-shadow-dark-2: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
+        --dark-version-shadow-dark: 0px 0px 5px 2px rgba(0, 0, 0, 0.25);
+        --light-version-shadow-1: 0px 0px 4px 0px rgba(255, 142, 41, 0.1);
+        --variable-collection-dark-grey: rgba(30, 30, 30, 1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="skills-UI">
+      <header class="header">
+        <div class="logo-landsacpe">
+          <h1 class="IMAJIN">SmartRoute AI</h1>
+        </div>
+        <div class="user-info">
+          <a href="EMdashboard.html">
+            <img class="ico-user-account" src="account.png" alt="User" />
+          </a>
+          <span id="userName"></span>
+        </div>
+      </header>
+      <main class="main-content">
+        <h2 class="page-title">Set Up Your Skill Evaluation</h2>
+      
+        <!-- Progress Bar -->
+        <nav class="progress-bar">
+          <div class="step">
+            <span class="step-indicator"></span>
+            <span class="step-label">Job Description</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="step">
+            <span class="step-indicator"></span>
+            <span class="step-label">Skill Category</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="step">
+            <span class="step-indicator"></span>
+            <span class="step-label">Select Skill</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="step">
+            <span class="step-indicator"></span>
+            <span class="step-label">Confirm</span>
+          </div>
+        </nav>
+      
+        <!-- Evaluation Form -->
+        <form id="skillForm" onsubmit="submitSkills(event)">
+          <div class="form-group">
+            <label for="job-title" class="form-label">Job Title</label>
+            <textarea id="job-title" class="textfield" placeholder="Enter Your Job \ Job Description ..."></textarea>
+          </div>
+      
+          <div class="form-group">
+            <label for="skill-category" class="form-label">Skill Category</label>
+            <select id="skill-category" class="textfield-2">
+              <option value="">-- Select Category --</option>
+              <option value="Hard Skills">Hard Skills</option>
+              <option value="Soft Skills">Soft Skills</option>
+            </select>
+            
+          </div>
+      
+          <div class="form-group">
+            <label class="form-label">Select Skill</label>
+            <div class="skill-options" id="skillOptions">
+              <!-- مهارات يتم توليدها ديناميكيًا عبر JavaScript -->
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <label for="description" class="form-label">Skill Description</label>
+            <textarea id="description" class="textfield-3" placeholder="Describe the selected skills or purpose..."></textarea>
+          </div>
+      
+          <div class="form-actions">
+            <button type="submit" class="button-large">Confirm</button>
+          </div>
+        </form>
+      </main>
+      
+    </div>
+    <div class="userName" style="z-index: 4; display: none; top: 57px; left: 1315px; position: absolute; color: white;"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+      const supabase = window.supabase.createClient(
+        'https://lunhqsvkhlscwwcjecht.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx1bmhxc3ZraGxzY3d3Y2plY2h0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEyNjkzNDEsImV4cCI6MjA2Njg0NTM0MX0.tOsnoreDpdOWESxnUMRMCgRTGKM0VMqLFdxgmrOfq3I'
+      );
+    
+      const skillsData = {
+        "Data Analyst": {
+          "Hard Skills": ["SQL", "Excel"],
+          "Soft Skills": ["Problem Solving", "Communication"]
+        },
+        "HR Specialist": {
+          "Hard Skills": ["Recruitment", "Payroll"],
+          "Soft Skills": ["Problem Solving", "Communication"]
+        },
+        "Graphic Designer": {
+          "Hard Skills": ["Illustrator", "UI/UX"],
+          "Soft Skills": ["Problem Solving", "Communication"]
+        }
+      };
+    
+      function updateSkillOptions() {
+  const jobTitleInput = document.getElementById("job-title").value.trim().toLowerCase();
+  const category = document.getElementById("skill-category").value.trim();
+  const container = document.getElementById("skillOptions");
+  container.innerHTML = "";
+
+  // نحول أسماء الوظائف للـ lowercase ونبحث بها
+  let matchedTitle = Object.keys(skillsData).find(title => title.toLowerCase() === jobTitleInput);
+  if (!matchedTitle || !category) return;
+
+  const skills = skillsData[matchedTitle][category] || [];
+
+  skills.forEach(skill => {
+    const label = document.createElement("label");
+    label.className = "skill-option";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.name = "skill";
+    checkbox.value = skill;
+    checkbox.dataset.skill = skill;
+
+    const span = document.createElement("span");
+    span.textContent = skill;
+
+    label.appendChild(checkbox);
+    label.appendChild(span);
+
+    container.appendChild(label);
+  });
+}
+
+    
+      async function submitSkills(event) {
+        event.preventDefault();
+    
+        const job_title = document.getElementById("job-title").value.trim();
+        const skill_category = document.getElementById("skill-category").value;
+        const description = document.getElementById("description").value.trim(); 
+    
+        const userIdRaw = localStorage.getItem("userId");
+        const user_id = Number(userIdRaw);
+    
+        console.log("User ID to insert skill for:", user_id, typeof user_id);
+    
+        if (!user_id || isNaN(user_id)) {
+          alert("❌ You must be logged in with a valid user ID.");
+          return;
+        }
+    
+        const selectedSkills = [...document.querySelectorAll("input[name='skill']:checked")];
+    
+        for (let skillInput of selectedSkills) {
+          const skill_name = skillInput.value;
+    
+          const { data: existingSkill, error: checkError } = await supabase
+            .from("skills")
+            .select("skill_id")
+            .eq("skill_name", skill_name)
+            .eq("job_title", job_title)
+            .eq("skill_category", skill_category)
+            .eq("user_id", user_id)
+            .maybeSingle();
+    
+          if (checkError) {
+            console.error("Error checking existing skill:", checkError);
+            continue; 
+          }
+    
+          if (!existingSkill) {
+            const { error: insertError } = await supabase
+              .from("skills")
+              .insert([{ job_title, skill_category, skill_name, description, user_id }]);
+    
+            if (insertError) {
+              console.error("❌ Error inserting skill:", insertError);
+            }
+          }
+        }
+    
+        alert("✅ Skills saved successfully!");
+        window.location.href = "EMdashboard.html";
+      }
+    
+      window.onload = function () {
+        document.getElementById("job-title").addEventListener("input", updateSkillOptions);
+        document.getElementById("skill-category").addEventListener("change", updateSkillOptions);
+    
+        const userName = localStorage.getItem("userName");
+        if (userName) {
+          const userEl = document.getElementById("userName");
+          if (userEl) userEl.textContent = userName;
+        }
+      };
+    </script>
+    
+  </body>  
+</html>

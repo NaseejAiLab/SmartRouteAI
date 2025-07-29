@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+  <head><title>SmartRoute AI</title>
+      <style>
+       
+       @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+ 
+ 
+      body {
+        background-image: url('Employee Dashboard.jpg');
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+        background-position: top center;
+        min-height: 10000px;
+        font-family: 'Montserrat';}
+ 
+       .text {
+        position: absolute;}
+ 
+        .text1 {
+          left: 120px;
+          color: rgb(0, 0, 0);
+          font-size: 16px;
+          font-family: 'Montserrat';
+          font-weight: 600;}
+        .text2 {
+          position: absolute;
+          background: linear-gradient( to bottom, #006064 0%,#009890 50%,#D9D9D9 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-size: 24px;
+          font-weight: 700;      
+          z-index: 2; /* أعلى من البوكس */}
+        .text3 {
+          position: absolute;
+          color: #ffffff;
+          font-size: 19px;
+          font-weight: 700;      
+          z-index: 3; /* أعلى من البوكس */}
+ 
+      .button {
+        position: absolute;
+        z-index: 4;
+        background: linear-gradient( to bottom, #006064 0%,#009890 50%,#D9D9D9 100%);      
+        color: white;
+        padding: 12px 48px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: bold;}
+     
+      img {
+        position: absolute;
+        z-index: 2;}
+        .image1 {
+          top: 1000px;
+          left: 400px;
+          width: 420px;}
+       
+    </style>
+ 
+    </head>
+   
+    <body>
+      <div class="text" style="top: 50px; left: 85px; position: absolute; color:white; font-size: 20px; font-weight: 700;">SmartRoute AI</div>
+      <img src="-account_circle.png" style="position: absolute; top: 50px; left: 1280px; width: 30px;">
+   
+      <!-- السايد -->
+      <a href="main.html" class="start-button">
+        <div class="text text1" style="top: 180px;">Home</div>
+        <img src="Home.png" style="position: absolute; z-index: 3; top: 180px; left: 90px; width: 15px;"></a>
+      <div class="text text1" style="top: 230px;">Dashboard</div>
+      <img src="application.png" style="position: absolute; z-index: 3; top: 230px; left: 90px; width: 15px;">
+      <div class="text text1" style="top: 280px;">Recommendations</div>
+      <img src="Fill.png" style="position: absolute; z-index: 3; top: 280px; left: 90px; width: 15px;">
+      <div class="text text1" style="top: 330px;">Evaluations</div>
+      <img src="Icon.png" style="position: absolute; z-index: 3; top: 330px; left: 90px; width: 15px;">
+      <div class="text text1" style="top: 380px;">Notification</div>
+      <img src="notification.png" style="position: absolute; z-index: 3; top: 380px; left: 90px; width: 15px;">
+      <a href="login.html" class="start-button">
+        <div class="text text1" style="top: 430px;">Logout</div>
+        <img src="logout.png" style="position: absolute; z-index: 3; top: 430px; left: 90px; width: 15px;"></a>
+   
+      <!-- القاعدة -->
+      <div class="box" style="position: absolute; z-index: 1; top: 230px; left: 380px; width: 960px; height: 1600px; border-radius: 20px; background-color: #D9D9D9; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);"></div>
+   
+      <!-- مربع المهارات -->
+      <div class="text text2" style="z-index: 4; top: 310px; left: 37.5vw;">Your Skills</div>
+      <div id="skillsContainer" class="box" style="
+      position: absolute;
+      top: 280px;
+      left: 29vw;
+      width: 24vw;
+      height: 36vw;
+      background-color: white;
+      border-radius: 20px;
+      padding: 90px 20px 90px 20px; /* ← هذه السطر أضفناه */
+      display: flex;
+      flex-direction: column;
+      align-items: stretch; /* أو center لو تبينه بوسط البوكس */
+      gap: 10px;
+      z-index: 3;
+    ">
+      <!-- سيتم إدراج المهارات هنا تلقائيًا -->
+    </div>  
+
+      <!-- مربع الموظفين -->
+      <div class="text text2" style="top: 310px; left: 964px;">Your Employees</div>
+      <div class="box" style="position: absolute; z-index: 1; top: 280px; left: 840px; width: 460px; height: 1010px; border-radius: 20px; background-color: #ffffff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);"></div>
+   
+      <!-- الرسائل الخاصة -->
+      <img src="note.png" class="image1">
+      <div class="text" style="top: 1040px; left: 450px; position: absolute; color:white; font-size: 25px; font-weight: 700; z-index: 3;">Private Notes</div>
+       
+   
+ 
+        <!-- زر لإظهار نافذة الملاحظة -->
+        <button onclick="openNotePopup()" style="
+          position: absolute;
+          top: 1580px;
+          left: 530px;
+          position: absolute;
+          background: linear-gradient( to bottom, #006064 0%,#009890 50%,#D9D9D9 100%);      
+          color: white;
+          padding: 12px 50px;
+          border-radius: 25px;
+          text-decoration: none;
+          font-weight: bold;
+          cursor: pointer;
+          z-index: 4;">Write Note</button>
+          <!-- نافذة منبثقة لكتابة الملاحظة -->
+          <div id="notePopup" style="
+            display: none;
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            text-align: center;
+            width: 400px;">
+           
+            <label for="noteEmployeeSelect" style="display:block; margin-bottom: 8px; font-weight:bold;">To:</label>
+            <select id="noteEmployeeSelect" style="width: 100%; padding: 10px; border-radius: 10px; margin-bottom: 15px;">
+              <!-- خيارات الموظفين تملاً لاحقاً بالدالة -->
+            </select>
+ 
+            <textarea id="noteContent" placeholder="Write your note here..." style="
+              width: 100%;
+              height: 100px;
+              border-radius: 10px;
+              border: 1px solid #ccc;
+              padding: 10px;
+              font-size: 15px;"></textarea><br><br>
+ 
+            <button onclick="submitNote()" style="
+              background-color: #891121;
+              color: white;
+              border: none;
+              padding: 8px 20px;
+              border-radius: 10px;
+              cursor: pointer;">Submit</button>
+ 
+            <button onclick="closeNotePopup()" style="
+              margin-left: 10px;
+              background-color: #ccc;
+              color: black;
+              border: none;
+              padding: 8px 20px;
+              border-radius: 10px;
+              cursor: pointer;">Cancel</button>
+          </div>
+ 
+   
+      <div class="userName" style="display: none; top: 57px; left: 1315px; position: absolute; color:white;"></div>
+      <div class="userName" style="display: none; top: 158px; left: 675px; position: absolute; font-size: 30px; color: #1E1E1E; z-index: 3;"></div>
+      <div id="skillsContainer" style="position: absolute; z-index: 2; top: 365px; left: 450px; width: 310px; height: 0px; border-radius: 15px;"></div>
+   
+      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+      <script>
+        const supabase = window.supabase.createClient(
+          'https://lunhqsvkhlscwwcjecht.supabase.co',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx1bmhxc3ZraGxzY3d3Y2plY2h0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEyNjkzNDEsImV4cCI6MjA2Njg0NTM0MX0.tOsnoreDpdOWESxnUMRMCgRTGKM0VMqLFdxgmrOfq3I'
+        );
+   
+        function showUserName() {
+          const name = localStorage.getItem("userName");
+          if (name) {
+            const userElements = document.querySelectorAll(".userName");
+            userElements.forEach(el => {
+              el.textContent = name;
+              el.style.display = "block";
+            });
+          }
+        }
+   
+        async function loadUserSkills() {
+        const userId = localStorage.getItem("userId");
+        if (!userId) return;
+
+        // 1. جلب المهارات
+        const { data: skills, error: skillError } = await supabase
+          .from("skills")
+          .select("skill_id, skill_name, skill_category, description")
+          .eq("user_id", userId);
+
+        // 2. جلب التقييمات لآخر مستوى
+        const { data: assessments, error: assessError } = await supabase
+          .from("assessments")
+          .select("skill_id, level, assessment_date")
+          .eq("user_id", userId)
+          .order("assessment_date", { ascending: false });
+
+        const container = document.getElementById("skillsContainer");
+        container.innerHTML = "";
+
+        if (skillError || !skills || skills.length === 0) {
+          container.innerHTML = "<p style='color: white; font-size: 14px;'>No skills found.</p>";
+          return;
+        }
+
+        // 3. أخذ آخر تقييم لكل مهارة
+        const latestLevels = {};
+        assessments.forEach(a => {
+          if (!latestLevels[a.skill_id]) {
+            latestLevels[a.skill_id] = a.level;
+          }
+        });
+
+        // 4. بناء البطاقات
+        skills.forEach(skill => {
+          const level = latestLevels[skill.skill_id] || "-";
+
+          const skillCard = document.createElement("div");
+          skillCard.style = `
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            background: linear-gradient(to bottom, #891121 40%, #E97878 100%);
+            color: white;
+            font-size: 17px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-family: sans-serif;
+            cursor: pointer;
+          `;
+
+          skillCard.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong>${skill.skill_name}</strong>
+          <span style="
+          width: 80px;
+            height: 70px;
+            border-radius: 8px;
+            background-color: #D9D9D9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: black;
+            font-family: 'Poppins', sans-serif;
+          ">${level}</span>
+          </div>
+        `;
+
+
+          skillCard.onclick = () => {
+            window.location.href = `evaluate.html?skill_id=${skill.skill_id}`;
+        };
+
+            container.appendChild(skillCard);
+          });
+
+          // 5. زر الإضافة بعد آخر مهارة
+const addBtnWrapper = document.createElement("div");
+addBtnWrapper.style = `
+  margin-top: 10px;  /* ← غيري الرقم حسب المسافة اللي تبينها */
+  display: flex;
+  justify-content: center;
+`;
+
+const addBtn = document.createElement("a");
+addBtn.href = "skills.html";
+addBtn.textContent = "+";
+addBtn.className = "circle-btn";
+addBtn.style = `
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+  background-color: #891121;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: 0.2s;
+     background: linear-gradient(to bottom, #006064 0%,#009890 50%,#D9D9D9 100%);
+
+`;
+
+addBtnWrapper.appendChild(addBtn);
+container.appendChild(addBtnWrapper);
+
+    
+    }
+
+
+      let currentNoteId = null;
+
+   
+        async function loadEmployeesForManager() {
+          const managerId = localStorage.getItem("userId");
+          if (!managerId) return;
+   
+          const { data: employees, error } = await supabase
+            .from("users")
+            .select("user_id, name")
+            .eq("manager_id", managerId);
+   
+          if (error || !employees) return;
+   
+          const container = document.body;
+          let top = 365;
+          let left = 890;
+   
+          employees.forEach((employee, index) => {
+            const offsetY = index * 130;
+            // زر التقييم (علامة الزائد)
+const plusButton = document.createElement("div");
+plusButton.innerHTML = "+";
+plusButton.style = `
+  position: absolute;
+  top: ${top + 30 + offsetY}px;
+  left: ${left + 320}px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+  color: #891121;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  z-index: 4;
+`;
+plusButton.onclick = () => {
+  openEvaluationPopup(employee.user_id);
+};
+ 
+ 
+container.appendChild(plusButton);
+ 
+   
+            const nameDiv = document.createElement("div");
+            nameDiv.className = "text text3";
+            nameDiv.textContent = employee.name;
+            nameDiv.style = `position: absolute; top: ${top + 30 + offsetY}px; left: ${left + 70}px; font-size: 18px; color: white; z-index: 3;`;
+   
+            const boxDiv = document.createElement("div");
+            boxDiv.className = "box";
+            boxDiv.style = `position: absolute; z-index: 2; top: ${top + offsetY}px; left: ${left}px; width: 360px; height: 90px; border-radius: 15px; background: linear-gradient(to bottom, #891121 40%, #E97878 100%);`;
+   
+            const img = document.createElement("img");
+            img.src = "-account_circle.png";
+            img.style = `position: absolute; z-index: 3; top: ${top + 15 + offsetY}px; left: ${left + 10}px; width: 55px;`;
+   
+            const openEmployeeDashboard = () => {
+              localStorage.setItem("employeeUserId", employee.user_id);
+              localStorage.setItem("employeeName", employee.name);
+              window.location.href = "ManagerToEmpdashboard.html";
+            };
+   
+            boxDiv.onclick = openEmployeeDashboard;
+            nameDiv.onclick = openEmployeeDashboard;
+            img.onclick = openEmployeeDashboard;
+   
+            container.appendChild(boxDiv);
+            container.appendChild(nameDiv);
+            container.appendChild(img);
+          });
+        }
+ 
+ 
+     
+        async function loadEmployeesDropdown() {
+          const managerId = localStorage.getItem("userId");
+          console.log("👤 Manager ID:", managerId);
+ 
+          const { data, error } = await supabase
+            .from("users")
+            .select("user_id, name")
+            .eq("manager_id", managerId);
+ 
+          if (error) {
+            console.error("❌ Error loading employees:", error);
+            return;
+          }
+ 
+          console.log("📋 Employees fetched:", data);
+ 
+          const select = document.getElementById("noteEmployeeSelect");
+          select.innerHTML = "";
+ 
+          if (!data || data.length === 0) {
+            const option = document.createElement("option");
+            option.textContent = "No employees found";
+            option.disabled = true;
+            option.selected = true;
+            select.appendChild(option);
+            return;
+          }
+ 
+          data.forEach(emp => {
+            const option = document.createElement("option");
+            option.value = emp.user_id;
+            option.textContent = emp.name;
+            select.appendChild(option);
+          });
+        }
+ 
+ 
+ 
+ 
+          function openNotePopup() {
+            loadEmployeesDropdown(); // نحدث القائمة وقت الفتح
+            document.getElementById("notePopup").style.display = "block";
+          }
+ 
+ 
+        function closeNotePopup() {
+          document.getElementById("notePopup").style.display = "none";
+        }
+ 
+        async function submitNote() {
+          const userId = document.getElementById("noteEmployeeSelect").value;
+          const managerId = localStorage.getItem("userId");
+          const content = document.getElementById("noteContent").value.trim();
+ 
+          if (!content) {
+            alert("Note cannot be empty.");
+            return;
+          }
+ 
+          const { error } = await supabase
+            .from("notes")
+            .insert([{ user_id: userId, manager_id: managerId, content }]);
+ 
+          if (error) {
+            alert("Failed to save note.");
+            console.error("❌ Error inserting note:", error);
+          } else {
+            alert("Note sent successfully!");
+            document.getElementById("noteContent").value = "";
+            closeNotePopup();
+          }
+        }
+        async function loadSentNotes() {
+            const managerId = localStorage.getItem("userId");
+ 
+            const { data: notes, error } = await supabase
+              .from("notes")
+              .select("content, user_id, users(name, role)")
+              .eq("manager_id", managerId);
+ 
+            if (error) {
+              console.error("❌ Error loading notes:", error);
+              return;
+            }
+ 
+            const container = document.createElement("div");
+            container.id = "notesDisplayContainer";
+            container.style.position = "absolute";
+            container.style.top = "1120px";
+            container.style.left = "430px";
+            container.style.width = "500px";
+            container.style.zIndex = "3";
+            document.body.appendChild(container);
+ 
+            notes.forEach((note, index) => {
+              const top = 0 + index * 100;
+ 
+              const html = `
+                <img src="-account_circle.png" style="
+                  position: absolute;
+                  z-index: 3;
+                  top: ${top}px;
+                  left: 0px;
+                  width: 55px;">
+                 
+                <div class="text" style="
+                  top: ${top + 5}px;
+                  left: 65px;
+                  position: absolute;
+                  color:white;
+                  font-size: 16px;
+                  font-weight: 700;
+                  z-index: 3;">${note.users?.name || "Employee"}</div>
+ 
+                <div class="text" style="
+                  top: ${top + 25}px;
+                  left: 65px;
+                  position: absolute;
+                  color:white;
+                  font-size: 12px;
+                  font-weight: 700;
+                  z-index: 3;">${note.users?.role || "Employee"}</div>
+ 
+                <img src="Group 5.png" style="
+                  position: absolute;
+                  z-index: 3;
+                  top: ${top + 3}px;
+                  left: 240px;
+                  width: 45px;">
+              `;
+ 
+              container.insertAdjacentHTML("beforeend", html);
+            });
+          }
+ 
+ 
+          window.addEventListener("DOMContentLoaded", () => {
+            showUserName();
+            loadUserSkills();
+            loadEmployeesForManager();
+            loadSentNotes();
+            loadEmployeesDropdown()
+          });
+          function openEvaluationPopup(userId) {
+  const popup = document.getElementById("evaluationPopup");
+  popup.style.display = "block";
+ 
+  const questions = [
+    "Was the employee's performance high in the last task?",
+    "Did the employee meet deadlines?",
+    "Did the employee communicate effectively?",
+    "Was the employee proactive in solving problems?",
+    "Did the employee show collaboration with others?",
+    "Was the employee focused and organized?",
+    "Did the employee demonstrate leadership skills?",
+    "Did the employee show initiative and creativity?",
+    "Did the employee handle feedback well?",
+    "Did the employee adapt well to change?"
+  ];
+ 
+  const container = document.getElementById("evaluationQuestions");
+  container.innerHTML = "";
+ 
+  questions.forEach((q, i) => {
+    const question = document.createElement("div");
+    question.innerHTML = `
+      <p>${i + 1}. ${q}</p>
+      <label><input type="radio" name="q${i}" value="Yes"> Yes</label>
+      <label><input type="radio" name="q${i}" value="No"> No</label>
+      <label><input type="radio" name="q${i}" value="Sometimes"> Sometimes</label>
+      <br><br>`;
+    container.appendChild(question);
+  });
+ 
+  // Store user ID for later submission
+  popup.setAttribute("data-user", userId);
+}
+ 
+function closeEvaluationPopup() {
+  document.getElementById("evaluationPopup").style.display = "none";
+}
+ 
+ 
+ 
+      </script>
+  <div id="evaluationPopup" style="
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  z-index: 1000;
+  text-align: left;
+  width: 550px;
+  max-height: 80vh;
+  overflow-y: auto;
+  font-family: Montserrat, sans-serif;
+">
+  <h3 style="text-align: center; margin-bottom: 20px;">Employee Evaluation</h3>
+  <form id="evaluationForm">
+    <div id="evaluationQuestions"></div>
+    <br>
+    <div style="text-align: center;">
+      <button type="submit" style="background-color: #891121; color: white; border: none; padding: 8px 20px; border-radius: 10px; cursor: pointer;">Submit</button>
+      <button type="button" onclick="closeEvaluationPopup()" style="margin-left: 10px; background-color: #ccc; color: black; border: none; padding: 8px 20px; border-radius: 10px; cursor: pointer;">Cancel</button>
+    </div>
+  </form>
+</div>
+    </body>
+   
+    </html>
